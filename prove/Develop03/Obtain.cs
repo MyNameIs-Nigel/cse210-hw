@@ -1,8 +1,14 @@
 public class Obtain
 {
     private string _filepath;
-    public Obtain(){
+    public Obtain()
+    {
         _filepath = "scriptures.txt";
+    }
+
+    public Obtain(string filepath)
+    {
+        _filepath = filepath;
     }
     public List<Reference> SetReferenceFromFile()
     {
@@ -13,7 +19,6 @@ public class Obtain
         List<string> lines = mlines.Skip(1).ToList();
         for (int i = 0; i < lines.Count(); i++)
         {
-            Reference reference = new Reference();
             bool consecutive = false;
             List<string> _reference = lines[i].Split("|").ToList();
             List<int> verses = new List<int>();
@@ -37,7 +42,7 @@ public class Obtain
                 Console.WriteLine("Error! Your file is in poor format!");
             }
 
-            reference.SetRef(book, chapter, verses, consecutive, text);
+            Reference reference = new Reference(book, chapter, verses, consecutive, text);
 
             _refList.Add(reference);
         }

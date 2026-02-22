@@ -6,14 +6,16 @@ public class Word
 
     private string _hiddentext;
 
-    public Word()
+    public Word(string text)
     {
+        _rawtext = text;
         _isHidden = false;
     }
 
-    public void SetWord(string word)
+    public Word(string text, bool hidden)
     {
-        _rawtext = word;
+        _rawtext = text;
+        _isHidden = hidden;
     }
 
     public bool IsHidden()
@@ -23,15 +25,15 @@ public class Word
 
     public void HideWord()
     {
-        foreach (char _letter in _rawtext)
+        foreach (char letter in _rawtext)
         {
-            if (Char.IsLetter(_letter))
+            if (Char.IsLetter(letter))
             {
                 _hiddentext += "_";
             }
             else
             {
-                _hiddentext += _letter;
+                _hiddentext += letter;
             }
         }
         _isHidden = true;

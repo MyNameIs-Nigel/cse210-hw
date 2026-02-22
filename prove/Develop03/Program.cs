@@ -5,57 +5,69 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Obtain class (for getting the references)
+        Obtain obtain = new Obtain("scriptures.txt"); // Dear TA, please either replace this with the path to scriptures.txt, or simply copy scriptures.txt INTO bin/Debug/net10.0 or whatever your compiled folder is
         Scripture scripture = new Scripture();
-
+        
         List<string> quitList = new List<string> {"quit", "q", "exit"};
 
-        int hideamt = 3;
+        List<Reference> references = obtain.SetReferenceFromFile();
+        Console.WriteLine("\n\nPlease choose one of the following references to memorize: ");
+        obtain.DisplayChoices(references);
 
-
-        // Console.Write("Your choice: ");
-        // int chosenReference = int.Parse(Console.ReadLine());
-
-
-        Console.Write("Enter how many words to hide at a time: ");
-
-        string attempt = Console.ReadLine();
-        // scripture.ChooseRef(chosenReference);
-
-
-        if (attempt.All(char.IsDigit) && string.IsNullOrEmpty(attempt) == false)
+        // Selection Loop
+        string answer = "";
+        while (quitList.Contains(answer) == false)
         {
-            hideamt = int.Parse(attempt);
+            answer = Console.ReadLine();
+
+            if (int.TryParse(answer, out int index))
+            {
+                if (index >= 0 && index <= references.Count())
+                {                
+                    scripture.SetReference(references[index - 1]);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Error: Please try again. {answer} is not a valid choice!");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Error: Please try again. {answer} is not in the valid format!");
+            }
         }
-        else
+        
+        Console.WriteLine($"You chose: {scripture.ReferenceText()}\n\n\nPress Enter to Start");
+        Console.ReadLine();
+        
+        
+        int hideamt = 3; // Change this to change how many words you hide at a time! Pretty neat right? (its creativity i swear!!!!)
+
+        // Main Memorizer Loop
+        answer = "";
+        while (quitList.Contains(answer) == false)
         {
-            Console.WriteLine($"Error! Not a number. Defaulting to {hideamt}. Press Enter to continue.");
-            Console.ReadLine();
-        }
-
-        string response = "";
-        Console.Clear();
-        Console.WriteLine("\n\n" + scripture.GetDisplayText());
-        Console.WriteLine("\nPlease Press Enter to Continue, or type quit/q/exit to exit!");
-
-        while (quitList.Contains(response) == false)
-        {
-
-            response = Console.ReadLine().ToLower();
-            Console.Clear();
             if (scripture.CheckAllHidden())
             {
-                Console.WriteLine($"\n\nCongrats! You've memorized {scripture.ReturnReference()}\n");
-                Console.WriteLine($"Which was {scripture.CountWords()} words long!\n");
+                Console.Clear();
+                Console.WriteLine(scripture.GetDisplayText());
+
+                Console.WriteLine($"\n\nThat's it! Press enter to see your results when ready.\n\n");
+                Console.ReadLine();
+                Console.WriteLine($"\nCongrats on memorizing {scripture.ReferenceText()}!\n\nThat was {scripture.CountWords()} words long, that's impressive!\n");
                 break;
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine(scripture.GetDisplayText());
+                
+                Console.Write($"\n\nPress Enter to Continue, or 'quit/q/exit' to abort...\n\n");
+                answer = Console.ReadLine().ToLower();
                 scripture.HideRandomWords(hideamt);
-                Console.WriteLine("\n\n" + scripture.GetDisplayText());
-                Console.WriteLine("\nPlease Press Enter to Continue, or type quit/q/exit to exit!");
             }
         }
-
-
     }
 }

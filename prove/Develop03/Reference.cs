@@ -16,12 +16,12 @@ public class Reference
         _text = "But before ye seek for riches, seek ye for the kingdom of God. And after ye have obtained a hope in Christ ye shall obtain riches, if ye seek them; and ye will seek them for the intent to do good—to clothe the naked, and to feed the hungry, and to liberate the captive, and administer relief to the sick and the afflicted.";
     }
 
-    public void SetRef(string book, int chapter, List<int> verses, bool consectutive, string text)
+    public Reference(string book, int chapter, List<int> verses, bool consecutive, string text)
     {
         _book = book;
         _chapter = chapter;
         _verses = verses;
-        _consecutive = consectutive;
+        _consecutive = consecutive;
         _text = text;
     }
     public List<string> GetTextAsList()
@@ -33,7 +33,11 @@ public class Reference
     {
         if (_consecutive)
         {
-            return $"{_book} {_chapter}:{_verses[0]}-{_verses[^1]}";
+            if (_verses.Count() == 1)
+            {
+              return $"{_book} {_chapter}:{_verses[0]}";
+            }
+            else return $"{_book} {_chapter}:{_verses[0]}-{_verses[^1]}";
         }
         else
         {
@@ -47,5 +51,17 @@ public class Reference
             return $"{_book} {_chapter}:{verseRef[..^1]}";
         }
     }
-    
+
+    public List<Word> GetWords()
+    {
+        List<Word> words = new List<Word>();
+        List<string> _words = _text.Split(" ").ToList();
+        foreach (string word in _words)
+        {
+            Word word1 = new Word(word);
+            words.Add(word1);
+        }
+
+        return words;
+    }
 }

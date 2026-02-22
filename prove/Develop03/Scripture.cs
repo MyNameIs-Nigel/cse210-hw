@@ -2,39 +2,44 @@ using System.ComponentModel;
 
 public class Scripture
 {
-    private List<Reference> _refList;
-    private List<Word> _words = new List<Word>();
+    // Random Class
     private Random _rng = new Random();
+
+    // Reference Class
     private Reference _ref;
-    private Obtain _obtain = new Obtain(); 
+    
+    // Word class
+    private List<Word> _words;
     private bool _allhidden;
+
+    // Constructors
     public Scripture()
     {
-        // _refList = _obtain.SetReferenceFromFile();
+        // Without declaring a choice, use the default reference
+
         _ref = new Reference();
-        
+        _words = _ref.GetWords();
+        _allhidden = false;
     }
 
-
-
-    public void ChooseRef(int choice)
+    public Scripture(Reference reference)
     {
-        _ref = _refList[choice - 1];
+
+        _ref = reference;
+        _words = _ref.GetWords();
+        _allhidden = false;
+
     }
 
-    public int CountWords()
+    // Setters
+    public void SetReference(Reference reference)
     {
-        return _words.Count();
+        _ref = reference;
+        _words = _ref.GetWords();
+        _allhidden = false;
     }
 
-    public string ReturnReference()
-    {
-        return _ref.RefToString();
-    }
-    public bool CheckAllHidden()
-    {
-        return _allhidden;
-    }
+    // Method to get the total Display (Reference & Words)
     public string GetDisplayText()
     {
         string output = $"{_ref.RefToString()} - ";
@@ -45,6 +50,20 @@ public class Scripture
         }
 
         return output;
+    }
+
+    // Getters
+    public bool CheckAllHidden()
+    {
+        return _allhidden;
+    }
+    public int CountWords()
+    {
+        return _words.Count();
+    }
+    public string ReferenceText()
+    {
+        return _ref.RefToString();
     }
 
 
