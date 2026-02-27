@@ -1,0 +1,58 @@
+@startuml
+title Develop04 Designer: Nigel Smith
+skinparam classAttributeIconSize 0
+class Activity {
+    # _activityDuration: int
+    # _starterText: string
+    # _rand: Random
+    + Activity()
+    + UserDuration(): int
+}
+class Breathing {
+    - _initialDisplay: string
+    - _breathe: Breathe
+    + Breathing()
+    + GetInitial(): string
+    + BreatheLoop(int duration): void
+}
+class Breathe {
+    - _text: string
+    - _breatheIn: bool
+    - _countdown: int
+    + Breathe()
+    + Breathe(int countdown): void
+    + DisplayBreathe(bool breatheIn): void
+}
+
+class Menu {
+    - _options: List<string>
+    - _loadingTime: int
+    + Menu()
+    + Menu(int loadingTime)
+    + Loading(int loadingTime): void
+    + UserOptions(): int
+    + ActivityLoop(int option): void
+}
+class Reflecting {
+    - _initialDisplay: string
+    - _prompts: List<string>
+    + Reflecting()
+    + GetInitial(): string
+    + RandPrompt(int delay): void
+    + UserReflect(int duration): void
+}
+class Listing {
+    - _initialDisplay: string
+    - _prompts: List<string>
+    + Listing()
+    + GetInitial(): string    
+    + RandPrompt(int delay): void
+    + ListIdeas(int duration): int
+}
+
+Activity <|-- Breathing
+Activity <|-- Reflecting
+Activity <|-- Listing
+Breathing -- Breathe
+Menu .. Activity
+@enduml
