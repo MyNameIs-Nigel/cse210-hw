@@ -10,6 +10,7 @@ public class Breathing : Base
 
     public Breathing()
     {
+        // Default Breathing Durations
         _inDuration = 3;
         _outDuration = 4;
     }
