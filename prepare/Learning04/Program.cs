@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        MathAssignment assignment = new MathAssignment("Nigel Smith", "uhhh", "12.3", "7-13");
+        MathAssignment assignment = new MathAssignment("Nigel Smith", "Fractions", "12.3", "7-13");
         
         WritingAssignment writing = new WritingAssignment("Nigel Smith", "Writing Foundations", "Analysis Essay");
         // Math Assignment
