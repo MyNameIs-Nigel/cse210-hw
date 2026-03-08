@@ -57,4 +57,11 @@ public class Base
             return 30;
         }
     }
+
+    protected void FinishText(string activity, int duration)
+    {
+        Console.WriteLine($"\nYou have completed {duration} seconds of the {activity} activity!");
+        LoadingAnimation(4);        
+        Console.Clear();
+    }
 }

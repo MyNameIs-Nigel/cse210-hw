@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+// using System.ComponentModel.DataAnnotations; // idk where that came from, i didn't put it there :P
 
 public class Breathing : Base
 {
@@ -71,9 +71,7 @@ public class Breathing : Base
         } 
         Console.WriteLine();
         LoadingAnimation(2);
-        Console.WriteLine($"\nYou have completed {_duration} seconds of the Breathing activity!");
-        LoadingAnimation(4);
-        Console.Clear();
+        FinishText("Breathing", _duration);
     }
 
 }
