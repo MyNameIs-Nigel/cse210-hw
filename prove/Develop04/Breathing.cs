@@ -1,20 +1,18 @@
-// using System.ComponentModel.DataAnnotations; // idk where that came from, i didn't put it there :P
+using System.ComponentModel.DataAnnotations; // idk where that came from, i didn't put it there :P
 
-public class Breathing : Base
+public class Breathing : Activity
 {
     private int _duration;
     private int _inDuration;
     private int _outDuration;
 
-    private string _introText = "This activity will help you manage your breathing so that you can calm down and relax.";
-
-    public Breathing()
+    public Breathing() : base("Breathing",  "This activity will help you manage your breathing so that you can calm down and relax.")
     {
         // Default Breathing Durations
         _inDuration = 3;
         _outDuration = 4;
     }
-    public Breathing(int breatheInTime, int breatheOutTime)
+    public Breathing(int breatheInTime, int breatheOutTime) : base("Breathing",  "This activity will help you manage your breathing so that you can calm down and relax.")
     {
         _inDuration = breatheInTime;
         _outDuration = breatheOutTime;
@@ -27,19 +25,7 @@ public class Breathing : Base
         else Console.Write("Breathe out...");
 
 
-        for (int i = duration; i > 0; i--)
-        {
-            // Write the second timer then wait a second
-            Console.Write(i);
-            Thread.Sleep(1000);
-
-            // Go back by character count (to handle anythign larger than 9)
-            int charLength = i.ToString().Count();
-            for (int j = 0; j < charLength; j++)
-            {
-                Console.Write("\b \b");
-            }
-        }
+        Countdown(duration);
 
         Console.WriteLine();
     }
@@ -47,7 +33,7 @@ public class Breathing : Base
     public void DisplayActivity()
     {
         // Initial Text & get the user input
-        _duration = IntroText("Breathing", _introText);
+        _duration = IntroText();
         // After intro
         GetReady();
 
@@ -68,11 +54,10 @@ public class Breathing : Base
             Console.Write(i);
             Thread.Sleep(1000);
             Console.Write("\b \b");
-  
-        } 
+        }
         Console.WriteLine();
         LoadingAnimation(2);
-        FinishText("Breathing", _duration);
+        FinishText(_duration);
     }
 
 }

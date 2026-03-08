@@ -25,18 +25,25 @@ class Program
 
                     break;
                 case "2":
-                    Console.WriteLine("Reflecting Chosen");
+                    // Console.WriteLine("Reflecting Chosen");
+                    Reflecting reflecting = new Reflecting();
+
+                    reflecting.DisplayActivity();
                     break;
                 case "3":
-                    Console.WriteLine("Listing Chosen");
+                    // Console.WriteLine("Listing Chosen");
+                    Listing listing = new Listing();
+
+                    listing.DisplayActivity();
+
                     break;
                 case "4":
                     Console.Clear();
-                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine("Goodbye! I hope you feel better :)");
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Incorrect Choice");
+                    Console.WriteLine("Incorrect Choice, try again.");
                     break;                
             }
         }
