@@ -18,7 +18,7 @@ public class Base
 
         Console.WriteLine("Get ready...");
         LoadingAnimation(3);
-        Console.WriteLine("\n\n");
+        Console.WriteLine("\n");
     }
     protected void LoadingAnimation(int iterations)
     {

@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class Breathing : Base
 {
-    private int _totalTime;
     private int _duration;
     private int _inDuration;
     private int _outDuration;
@@ -11,11 +10,13 @@ public class Breathing : Base
 
     public Breathing()
     {
-        _totalTime = 30; // Default time of 30 seconds
+        _inDuration = 3;
+        _outDuration = 4;
     }
-    public Breathing(int time)
+    public Breathing(int breatheInTime, int breatheOutTime)
     {
-        _totalTime = time;
+        _inDuration = breatheInTime;
+        _outDuration = breatheOutTime;
     }
 
     private void Breathe(bool breatheIn, int duration)
@@ -38,6 +39,8 @@ public class Breathing : Base
                 Console.Write("\b \b");
             }
         }
+
+        Console.WriteLine();
     }
 
     public void DisplayActivity()
@@ -54,11 +57,23 @@ public class Breathing : Base
 
         for (int i = 0; i < cycleCount; i++)
         {
-            // to do
+            Breathe(true, _inDuration);
+            Breathe(false, _outDuration);
         }
         // Relax with optional timer that goes off to complete the full duration
         Console.Write("Now relax...");
-        for (int i = durMod; i > 0; i--) Console.Write("\b \b");
+        for (int i = durMod; i > 0; i--)
+        {
+            Console.Write(i);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+  
+        } 
+        Console.WriteLine();
+        LoadingAnimation(2);
+        Console.WriteLine($"\nYou have completed {_duration} seconds of the Breathing activity!");
+        LoadingAnimation(4);
+        Console.Clear();
     }
 
 }
