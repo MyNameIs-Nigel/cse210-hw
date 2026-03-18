@@ -10,12 +10,9 @@ class Program
 
         // Rectangle rectangle = new Rectangle(2,6,"blue");
 
-        List<Shape> shapes = new List<Shape>
-        {
-            new Rectangle(2,6, "Blue"),
-            new Circle(3, "Green"),
-            new Square(5, "Red")
-        };
+        Populate pop = new Populate();
+
+        List<Shape> shapes = pop.PopulateShapes(); 
 
         foreach (Shape s in shapes)
         {
