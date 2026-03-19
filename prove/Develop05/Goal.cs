@@ -13,6 +13,8 @@ abstract public class Goal
 
     public abstract string GoalToString();
 
+    public abstract int CompleteGoal();
+
     public virtual string GoalPretty()
     {
         return $"[ ] {_title} ({_desc})";

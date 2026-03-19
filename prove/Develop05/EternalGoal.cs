@@ -5,8 +5,17 @@ public class EternalGoal : Goal
         
     }
 
+    public override int CompleteGoal()
+    {
+        return _score;
+    }
+
+    // public override string GoalPretty()
+    // {
+    //     return $"[ ] {_title} ({_desc}) ~eternal~";
+    // }
     public override string GoalToString()
     {
-        return $"SimpleGoal:{_title},{_desc},{_score}";
+        return $"EternalGoal:{_title},{_desc},{_score}";
     }
 }

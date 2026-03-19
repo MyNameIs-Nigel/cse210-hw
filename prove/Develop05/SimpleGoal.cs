@@ -6,10 +6,34 @@ public class SimpleGoal : Goal
     {
         _complete = false;
     }
+    public SimpleGoal(string title, string description, int score, bool complete) : base(title, description, score)
+    {
+        _complete = complete;
+    }
+
+    public override int CompleteGoal()
+    {
+        if (_complete)
+        {
+            return 0;
+        }
+        else
+        {
+            _complete = true;
+            return _score;
+        }
+    }
 
     public override string GoalToString()
     {
-        return $"SimpleGoal:{_title},{_desc},{_score},{_complete}";
+        if (_complete)
+        {
+            return $"SimpleGoal:{_title},{_desc},{_score},True";
+        }
+        else
+        {
+            return $"SimpleGoal:{_title},{_desc},{_score},False";
+        }
     }
 
     public override string GoalPretty()

@@ -29,10 +29,13 @@ class Program
                     run.ListGoals();
                     break;
                 case "3":
+                    run.SaveGoals("goals.txt");
                     break;
                 case "4":
+                    run.LoadGoals("goals.txt");
                     break;
                 case "5":
+                    run.RecordEvent();
                     break;
                 case "6":
                 run.WriteColor("Goodbye!",ConsoleColor.Cyan);
