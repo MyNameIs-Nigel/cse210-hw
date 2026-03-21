@@ -212,16 +212,24 @@ public class Menu
         else
         {
             Console.Write("Goal to Record: ");
-            int chosenIndex = int.Parse(Console.ReadLine());
-
-            if (chosenIndex > _goals.Count() || chosenIndex < 1)
-            {
-                Console.WriteLine("Uh oh! That number isn't an option... Try again! (hit enter to continue)");
+            // int chosenIndex = int.Parse(Console.ReadLine());
+            int chosenIndex;
+            string attempt = Console.ReadLine();
+            if (int.TryParse(attempt, out chosenIndex) == false) {
+                Console.Write("Uh oh! That isn't a valid number... Try again! (hit enter to continue)");
                 Console.ReadLine();
             }
             else
             {
-                _points = _points + _goals[chosenIndex - 1].CompleteGoal();
+                if (chosenIndex > _goals.Count() || chosenIndex < 1)
+                {
+                    Console.WriteLine("Uh oh! That number isn't an option... Try again! (hit enter to continue)");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    _points = _points + _goals[chosenIndex - 1].CompleteGoal();
+                }
             }
         }
     }
