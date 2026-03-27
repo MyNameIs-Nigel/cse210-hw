@@ -1,0 +1,75 @@
+@startuml
+skinparam classAttributeIconSize 0
+class CanvasAPI
+CanvasAPI : - _client: HttpClient
+CanvasAPI : - _canvasUrl: string
+CanvasAPI : - _enrollmentTermId: int
+CanvasAPI : - _apiKey: string
+CanvasAPI : + CanvasAPI()
+CanvasAPI : - APIKeyFromFile(string): string
+CanvasAPI : - AddHeaders(): void
+CanvasAPI : + GetStudentInfo(): Student
+CanvasAPI : + GetCourses(): List<Course>
+CanvasAPI : + CourseMenu(): int
+
+class Assignment
+Assignment : - _name: string
+Assignment : - _due: DateTime
+Assignment : - _points: int
+Assignment : + Assignment(string, DateTime, int)
+Assignment : + abstract PrettyString(): string
+Assignment : + DueDate(): DateTime
+
+class NormalAssignment
+NormalAssignment : - _score: int
+NormalAssignment : - _late: bool 
+NormalAssignment : - _submitted: bool
+NormalAssignment : + Score(): int
+NormalAssignment : + override PrettyString(): string
+NormalAssignment : + IsSubmitted(): bool
+NormalAssignment : + IsLate(): bool
+
+class CheckboxAssignment
+CheckboxAssignment : - _complete: bool
+CheckboxAssignment : + override PrettyString(): string
+CheckboxAssignment : + IsSubmitted(): bool
+
+class Course
+Course : # _id: int
+Course : # _name: string
+Course : # _code: string
+Course : + Course(int, string, string)
+Course : + virtual GradeString(): string
+Course : + abstract CourseString(): string
+
+class MajorCourse
+MajorCourse : + MajorCourse(int, string, string)
+MajorCourse : + override CourseString(): string
+
+class StudentCourse
+StudentCourse : - _grade: Grade
+StudentCourse : - _assignments: List<Assignment>
+StudentCourse : + StudentCourse(int, string, string, double, string)
+StudentCourse : + GetAssignments(): List<Assignment>
+StudentCourse : + override CourseString(): string
+StudentCourse : + override GradeString(): string
+StudentCourse : + BuildCourse(int): void
+
+class Grade
+Grade : - _score: double
+Grade : - _letter: string
+Grade : + Grade(double, string)
+Grade : + GetScore: double
+Grade : + GetLetter(): string
+
+class Student
+Student : - _name: string
+Student : - _id: int
+Student : - _email: string
+Student : + Student(name, id)
+Student : + Student(name, id, email)
+Student : + WriteName(ConsoleColor): void
+
+
+
+@enduml
