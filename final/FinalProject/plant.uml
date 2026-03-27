@@ -1,4 +1,5 @@
 @startuml
+title Nigel Smith FINAL
 skinparam classAttributeIconSize 0
 class CanvasAPI
 CanvasAPI : - _client: HttpClient
