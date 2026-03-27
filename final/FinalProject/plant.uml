@@ -12,7 +12,7 @@ CanvasAPI : + GetStudentInfo(): Student
 CanvasAPI : + GetCourses(): List<Course>
 CanvasAPI : + CourseMenu(): int
 
-class Assignment
+abstract class Assignment
 Assignment : - _name: string
 Assignment : - _due: DateTime
 Assignment : - _points: int
@@ -34,7 +34,7 @@ CheckboxAssignment : - _complete: bool
 CheckboxAssignment : + override PrettyString(): string
 CheckboxAssignment : + IsSubmitted(): bool
 
-class Course
+abstract class Course
 Course : # _id: int
 Course : # _name: string
 Course : # _code: string
@@ -70,6 +70,15 @@ Student : + Student(name, id)
 Student : + Student(name, id, email)
 Student : + WriteName(ConsoleColor): void
 
+Assignment <|-- CheckboxAssignment
+Assignment <|-- NormalAssignment
 
+Course <|-- StudentCourse
+Course <|-- MajorCourse
+
+StudentCourse *-- Grade : "has a"
+CanvasAPI *-- Course : "has many"
+CanvasAPI *-- Student : "has a"
+StudentCourse *-- Assignment : "has many"
 
 @enduml
