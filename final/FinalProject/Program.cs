@@ -4,47 +4,61 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Create Canvas Object
         CanvasAPI canvas = new CanvasAPI();
+        
+        
         Console.Clear();
-        // Console.WriteLine(student.StudentName());
         Console.WriteLine("Pulling Canvas Info...");
+
+        // Pull Student Info 
         Student student = canvas.GetStudentInfo();
+
+        // Create Canvas Objects
         CanvasInfo info = new CanvasInfo();
         CourseMenu menu = new CourseMenu(info.GetCourses());
 
-        // foreach (Course course in courses)
-        // {
-        //     Console.WriteLine(course.CourseString());
-        // }
-
+        // Menu Time!
+        Console.Clear();
         string menu_choice = "";
+
         // Main Menu Loop
-        while (menu_choice != "3")
+        while (menu_choice != "4")
         {
+            // List Menu
             Console.Write($"Welcome back, ");
             student.WriteName(ConsoleColor.Green);            
-            Console.WriteLine("\n\nMenu Options:\n  1. See Grades\n  2. See Assignment Info\n  3. Quit");
+            Console.WriteLine("\n\nMenu Options:\n  1. See Grades\n  2. See Assignment Info\n  3. Save Assignments (as Json)\n  4. Quit");
             
+            // Get User Choice
             menu_choice = Console.ReadLine();
             
-
+            // Switch for Menu Choice
             switch (menu_choice)
             {
+                // Show Grades
                 case "1":
                     Console.Clear();
                     menu.GetGrades();
                     break;
 
+                // Get Assignment Summary
                 case "2":
                     Console.Clear();
+
+                    // Call the Assignment Menu method and store is as chosen_id
                     int chosen_id = menu.AssignmentMenu();
+
+                    // Ensure an error hasn't occured
                     if (chosen_id != 0)
                     {
+                        // Pull Assignments
                         Console.WriteLine("Please Wait... (This might take a while depending on your internet speed)");
                         string selected_course = menu.GetCode(chosen_id);
 
                         List<Assignment> assignments = info.PullAssignments(chosen_id);
 
+                        // List Assignmnets Count and await user input
                         Console.WriteLine($"Found {assignments.Count()} assignments in {selected_course}!");
                         Console.WriteLine("\nPress Enter to continue...");
                         Console.ReadLine();
@@ -61,9 +75,13 @@ class Program
                             Console.Clear();
                             Console.WriteLine($"Assignments Overview - {selected_course}");
                             
+                            // Iterate for that specific page
                             for (int j = 0; j < per_page; j++)
                             {
+                                // Get the index for the actual assignment
                                 int assignment_index = (i * per_page) + j;
+
+                                // Check if that index is in range then print that summary of that Assignment object
                                 if (assignment_index < (assignments.Count() - 1))
                                 {
                                     Console.WriteLine(assignments[assignment_index].GetSummary());
@@ -78,7 +96,26 @@ class Program
                     
                     break;
 
+                // Save assignments to file. Loading is future implementation
                 case "3":
+                    Console.Clear();
+                    Console.WriteLine("Save/Load Assignments\n");
+
+                    // Get user choice of course
+                    int chosen_save = menu.AssignmentMenu();
+
+                    // Check for error, if none continue
+                    if (chosen_save != 0)
+                    {
+                        // Save the file with that chosen courseId
+                        Console.WriteLine("Writing to file...");
+                        info.SaveAssignentsToFile(chosen_save);
+                        Console.WriteLine("Done! Press Enter to Continue...");
+                        Console.ReadLine();
+                    }
+                    break;
+
+                case "4":
                     break;
                 
                 default:

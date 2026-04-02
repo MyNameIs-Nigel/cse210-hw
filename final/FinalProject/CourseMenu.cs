@@ -3,32 +3,37 @@ using System.Text.Json;
 
 public class CourseMenu : CanvasAPI
 {
-
+    // Setting the Variables
     private List<Course> _courses;
 
+    // Constructors
     public CourseMenu(List<Course> coursesList)
     {
         _courses = coursesList;
     }
 
+    // Menu for Grades that uses the list of Courses
     public void GetGrades()
     {
-        Console.WriteLine("Grades: (Skips Major Courses)");
 
+        Console.WriteLine("Grades: (Skips Major Courses)\n");
+        // Iterate through the courses. Was a foreach but I wanted to list index number. But it skips major courses sooo its gonna be off
         for (int i=0; i<_courses.Count(); i++)
         {
-
+            // Setting Variables
             string score_string = _courses[i].GradeString();
 
+            // Check if it's a major course
             if (score_string != "No Grade Available")
             {
-                Console.WriteLine($"{i + 1}. {_courses[i].CourseString()}\n>  {score_string}");
+                Console.WriteLine($"{_courses[i].CourseString()}\n- {score_string}");
             }
         }        
         Console.Write("\nPress Enter to Continue... ");
         Console.ReadLine();
     }
 
+    // Get the course Code string for that given courseId 
     public string GetCode(int courseId)
     {
         string code = "Error!";
@@ -42,6 +47,7 @@ public class CourseMenu : CanvasAPI
 
         return code;
     }
+    // Choose a course code (IF ERROR SET IT TO 0)
     public int AssignmentMenu()
     {
         Console.WriteLine("Courses:  ");

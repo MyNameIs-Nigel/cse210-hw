@@ -12,17 +12,20 @@ public abstract class Course
         _code = code;
     }
 
+    // Setting the grade string as a virtual, because StudentCourse needs a different one
     public virtual string GradeString()
     {
         return "No Grade Available";
     }
+
+    // Making abstract method to call the course string
     public abstract string CourseString();
 
+    // Getters
     public int GetCourseId()
     {
         return _id;
     }
-
     public string GetCourseCode()
     {
         return _code;
