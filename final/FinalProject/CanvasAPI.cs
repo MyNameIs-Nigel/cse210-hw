@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text.Json;
 
@@ -8,14 +9,14 @@ public class CanvasAPI
     private HttpClient _client = new HttpClient();
     
 
-    private string _canvasUrl;
-    private int _enrollmentTermId = 419;
-    private string _apikey;
+    protected string _canvasUrl;
+    protected int _enrollmentTermId = 419;
+    protected string _apikey;
     public CanvasAPI()
     {
         _apikey = APIKeyFromFile();
         _canvasUrl = "https://byui.instructure.com/api/v1";
-        AddHeaders();
+        AddHeaders(_client);
     }
 
     private string APIKeyFromFile(string filename = ".env")
@@ -43,9 +44,9 @@ public class CanvasAPI
         return key;
     }
 
-    private void AddHeaders()
+    protected void AddHeaders(HttpClient client)
     {
-        _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apikey}");
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apikey}");
 
     }
 
@@ -66,57 +67,6 @@ public class CanvasAPI
         Student self = new Student(name,id,email);
 
         return self;
-    }
-
-    public List<Course> GetCourses()
-    {
-        List<Course> courses = new List<Course>();
-
-        HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses?enrollment_state=active&include[]=total_scores").Result;
-
-        string json = response.Content.ReadAsStringAsync().Result;
-
-        JsonDocument doc = JsonDocument.Parse(json);
-        JsonElement root = doc.RootElement;
-
-        foreach (JsonElement element in root.EnumerateArray())
-        {
-            int term_id = element.GetProperty("enrollment_term_id").GetInt32();
-            int course_id = element.GetProperty("id").GetInt32();
-
-            string course_code = element.GetProperty("course_code").GetString();
-            string course_name = element.GetProperty("name").GetString();
-
-
-            //  Check if this is a current class or major class (is this the current term or not)
-            if (term_id == _enrollmentTermId)
-            {
-                JsonElement enrollment = element.GetProperty("enrollments")[0];
-
-                
-                string letter_grade = enrollment.GetProperty("computed_current_grade").GetString();
-                double score = enrollment.GetProperty("computed_current_score").GetDouble();
-                // string letter_grade = "A-";
-                // double score = 92.53;
-
-                StudentCourse course = new StudentCourse(course_id,course_name,course_code, score, letter_grade);
-                courses.Add(course);
-            }
-            else
-            {
-                MajorCourse course = new MajorCourse(course_id, course_name, course_code);
-                courses.Add(course);
-            }
-        }
-
-        return courses;
-    }
-
-    public int CourseMenu()
-    {
-        
-
-        return 1;
     }
 
     public void PrintCoursesJson()

@@ -17,4 +17,9 @@ public abstract class Course
         return "No Grade Available";
     }
     public abstract string CourseString();
+
+    public int GetCourseId()
+    {
+        return _id;
+    }
 }

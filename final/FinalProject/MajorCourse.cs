@@ -7,6 +7,6 @@ public class MajorCourse : Course
 
     public override string CourseString()
     {
-        return $"Ma{_code}";
+        return $"{_code}";
     }
 }

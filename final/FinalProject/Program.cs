@@ -9,7 +9,8 @@ class Program
         // Console.WriteLine(student.StudentName());
         Console.WriteLine("Pulling Canvas Info...");
         Student student = canvas.GetStudentInfo();
-        List<Course> courses = canvas.GetCourses();
+        CanvasInfo info = new CanvasInfo();
+        CourseMenu menu = new CourseMenu(info.GetCourses());
 
         // foreach (Course course in courses)
         // {
@@ -31,27 +32,25 @@ class Program
             {
                 case "1":
                 Console.Clear();
-                Console.WriteLine("Grades: ");
-                for (int i=0; i<courses.Count(); i++)
-                    {
-                        string score_string = courses[i].GradeString();
-                        Console.WriteLine($"{i + 1}. {courses[i].CourseString()}\n>  {score_string}");
-                    }
-                Console.Write("\nPress Enter to Continue... ");
-                Console.ReadLine();
+                menu.GetGrades();
                 break;
 
                 case "2":
                 Console.Clear();
-                int course_id = canvas.CourseMenu();
-
-                Console.Write("\nPress Enter to Continue... ");
+                int chosen_id = menu.AssignmentMenu();
+                if (chosen_id != 0)
+                {
+                    info.PullAssignments(chosen_id);
+                    
+                }
                 break;
 
                 case "3":
                 break;
                 
                 default:
+                Console.Write("Invalid Choice! Try again..");
+                Thread.Sleep(1000);
                 break;
             }
             Console.Clear();

@@ -1,12 +1,15 @@
 public class NormalAssignment : Assignment
 {
-    private int _score;
+    private double _score;
     private bool _late;
-    private bool _submitted;
-    public NormalAssignment(string name, DateTime due_date, int max_points, int score, bool submitted, bool late) : base(name, due_date, max_points)
+    private DateTime _submitted;
+
+    private bool _graded;
+    public NormalAssignment(string name, DateTime due_date, double max_points, double score, DateTime submission_date, bool late, bool graded) : base(name, due_date, max_points)
     {
         _score = score;
         _late = late;
-        _submitted = submitted;
+        _submitted = submission_date;
+        _graded = graded;
     }
 }
