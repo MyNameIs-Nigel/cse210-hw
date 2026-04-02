@@ -115,16 +115,16 @@ public class Assignment
         {
             if (_graded)
             {
-                return $"Name: {_name}\nGrade: [{_submissionScore} / {_maxPoints}]";
+                return $"Name: {_name}\n> Grade: [{_submissionScore} / {_maxPoints}]";
             }
             else
             {
-                return $"Name: {_name}\nMax Points: {_maxPoints} (Not Graded)";
+                return $"Name: {_name}\n> Max Points: {_maxPoints} (Not Graded)";
             }
         }
         else
         {
-            return $"Name: {_name}\nMax Points: {_maxPoints} (Not Submitted)";
+            return $"Name: {_name}\n> Max Points: {_maxPoints} (Not Submitted)";
         }
         
     }

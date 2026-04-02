@@ -22,4 +22,9 @@ public abstract class Course
     {
         return _id;
     }
+
+    public string GetCourseCode()
+    {
+        return _code;
+    }
 }

@@ -29,6 +29,19 @@ public class CourseMenu : CanvasAPI
         Console.ReadLine();
     }
 
+    public string GetCode(int courseId)
+    {
+        string code = "Error!";
+        foreach (Course course in _courses)
+        {
+            if (course.GetCourseId() == courseId)
+            {
+                code = course.GetCourseCode();
+            }
+        }
+
+        return code;
+    }
     public int AssignmentMenu()
     {
         Console.WriteLine("Courses:  ");

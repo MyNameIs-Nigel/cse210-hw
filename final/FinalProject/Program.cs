@@ -31,27 +31,60 @@ class Program
             switch (menu_choice)
             {
                 case "1":
-                Console.Clear();
-                menu.GetGrades();
-                break;
+                    Console.Clear();
+                    menu.GetGrades();
+                    break;
 
                 case "2":
-                Console.Clear();
-                int chosen_id = menu.AssignmentMenu();
-                if (chosen_id != 0)
-                {
-                    info.PullAssignments(chosen_id);
+                    Console.Clear();
+                    int chosen_id = menu.AssignmentMenu();
+                    if (chosen_id != 0)
+                    {
+                        Console.WriteLine("Please Wait... (This might take a while depending on your internet speed)");
+                        string selected_course = menu.GetCode(chosen_id);
+
+                        List<Assignment> assignments = info.PullAssignments(chosen_id);
+
+                        Console.WriteLine($"Found {assignments.Count()} assignments in {selected_course}!");
+                        Console.WriteLine("\nPress Enter to continue...");
+                        Console.ReadLine();
+
+                        // How many items per page
+                        int per_page = 7;
+                        
+                        // Math trick to get the ceiling!
+                        int pages = (assignments.Count() + per_page) / per_page;
+                        
+                        // Loop for pages
+                        for (int i=0; i < (pages - 1); i++)
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Assignments Overview - {selected_course}");
+                            
+                            for (int j = 0; j < per_page; j++)
+                            {
+                                int assignment_index = (i * per_page) + j;
+                                if (assignment_index < (assignments.Count() - 1))
+                                {
+                                    Console.WriteLine(assignments[assignment_index].GetSummary());
+                                }
+                            }
+
+                            Console.WriteLine($"\nPress Enter (Page {i + 1} of {pages - 1})");
+                            Console.ReadLine();
+                        }
+                        
+                    }
                     
-                }
-                break;
+                    break;
 
                 case "3":
-                break;
+                    break;
                 
                 default:
-                Console.Write("Invalid Choice! Try again..");
-                Thread.Sleep(1000);
-                break;
+                    Console.Write("Invalid Choice! Try again..");
+                    Thread.Sleep(1000);
+                    break;
             }
             Console.Clear();
         }

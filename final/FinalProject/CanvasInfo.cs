@@ -74,7 +74,6 @@ public class CanvasInfo : CanvasAPI
             assignments.Add(assignment);
         }
 
-        Console.ReadLine();
         return assignments;
     }
 
