@@ -13,10 +13,7 @@ public abstract class Course
     }
 
     // Setting the grade string as a virtual, because StudentCourse needs a different one
-    public virtual string GradeString()
-    {
-        return "No Grade Available";
-    }
+    public abstract string GradeString();
 
     // Making abstract method to call the course string
     public abstract string CourseString();

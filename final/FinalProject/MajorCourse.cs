@@ -11,4 +11,9 @@ public class MajorCourse : Course
     {
         return $"[MAJOR] {_code}";
     }
+
+    public override string GradeString()
+    {
+        return "No Grade Available";
+    }
 }
