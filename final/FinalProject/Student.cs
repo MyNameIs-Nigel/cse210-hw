@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-public class Student {
+public class Student
+{
     // Variables
     private string _name;
     private int _id;

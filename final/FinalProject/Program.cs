@@ -6,8 +6,6 @@ class Program
     {
         // Create Canvas Object
         CanvasAPI canvas = new CanvasAPI();
-        
-        
         Console.Clear();
         Console.WriteLine("Pulling Canvas Info...");
 
@@ -70,7 +68,7 @@ class Program
                         int pages = (assignments.Count() + perPage) / perPage;
                         
                         // Loop for pages
-                        for (int i=0; i < (pages - 1); i++)
+                        for (int i = 0; i < (pages - 1); i++)
                         {
                             Console.Clear();
                             Console.WriteLine($"Assignments Overview - {selectedCourse}");

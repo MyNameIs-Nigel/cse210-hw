@@ -1,10 +1,11 @@
-public class StudentCourse : Course {
+public class StudentCourse : Course
+{
     // Declaring Variables
     private Grade _grade;
     private List<Assignment> _assignments;
 
     // Constructor
-    public StudentCourse(int id, string name, string code, double score, string letterGrade) : base(id,name,code)
+    public StudentCourse(int id, string name, string code, double score, string letterGrade) : base(id, name, code)
     {
         // New assignments list (NOT USED CURRENTLY)
         _assignments = new List<Assignment>();

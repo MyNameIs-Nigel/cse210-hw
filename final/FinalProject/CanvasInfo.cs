@@ -47,7 +47,7 @@ public class CanvasInfo : CanvasAPI
                 string letterGrade = enrollment.GetProperty("computed_current_grade").GetString();
                 double score = enrollment.GetProperty("computed_current_score").GetDouble();
 
-                StudentCourse course = new StudentCourse(courseId,courseName,courseCode, score, letterGrade);
+                StudentCourse course = new StudentCourse(courseId, courseName, courseCode, score, letterGrade);
                 courses.Add(course);
             }
             else

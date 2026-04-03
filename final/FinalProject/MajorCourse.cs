@@ -1,10 +1,7 @@
 public class MajorCourse : Course
 {
     // Constructor
-    public MajorCourse(int courseId, string course_name, string courseCode) : base(courseId, course_name, courseCode)
-    {
-        
-    }
+    public MajorCourse(int courseId, string course_name, string courseCode) : base(courseId, course_name, courseCode){}
 
     // Overriden CourseString 
     public override string CourseString()

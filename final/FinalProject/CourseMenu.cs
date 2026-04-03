@@ -18,7 +18,7 @@ public class CourseMenu : CanvasAPI
 
         Console.WriteLine("Grades: (Skips Major Courses)\n");
         // Iterate through the courses. Was a foreach but I wanted to list index number. But it skips major courses sooo its gonna be off
-        for (int i=0; i<_courses.Count(); i++)
+        for (int i = 0; i < _courses.Count(); i++)
         {
             // Setting Variables
             string scoreString = _courses[i].GradeString();
@@ -52,7 +52,7 @@ public class CourseMenu : CanvasAPI
     {
         Console.WriteLine("Courses:  ");
 
-        for (int i=0; i<_courses.Count(); i++)
+        for (int i = 0; i < _courses.Count(); i++)
         {
             Console.WriteLine($"{i+1}: {_courses[i].CourseString()}");
         }
