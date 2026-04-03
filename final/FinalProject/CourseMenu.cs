@@ -21,12 +21,12 @@ public class CourseMenu : CanvasAPI
         for (int i=0; i<_courses.Count(); i++)
         {
             // Setting Variables
-            string score_string = _courses[i].GradeString();
+            string scoreString = _courses[i].GradeString();
 
             // Check if it's a major course
-            if (score_string != "No Grade Available")
+            if (scoreString != "No Grade Available")
             {
-                Console.WriteLine($"{_courses[i].CourseString()}\n- {score_string}");
+                Console.WriteLine($"{_courses[i].CourseString()}\n- {scoreString}");
             }
         }        
         Console.Write("\nPress Enter to Continue... ");

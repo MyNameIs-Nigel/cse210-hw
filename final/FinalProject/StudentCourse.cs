@@ -4,13 +4,13 @@ public class StudentCourse : Course {
     private List<Assignment> _assignments;
 
     // Constructor
-    public StudentCourse(int id, string name, string code, double score, string letter_grade) : base(id,name,code)
+    public StudentCourse(int id, string name, string code, double score, string letterGrade) : base(id,name,code)
     {
         // New assignments list (NOT USED CURRENTLY)
         _assignments = new List<Assignment>();
 
         // new Grade object
-        _grade = new Grade(score, letter_grade);
+        _grade = new Grade(score, letterGrade);
     }
 
     // Getters
@@ -28,9 +28,9 @@ public class StudentCourse : Course {
     // Overridden Grade string with grade info!
     public override string GradeString()
     {
-        string letter_grade = _grade.GetLetter();
+        string letterGrade = _grade.GetLetter();
         double score = _grade.GetScore();
 
-        return $"{letter_grade} - {score}"; 
+        return $"{letterGrade} - {score}"; 
     }
 }

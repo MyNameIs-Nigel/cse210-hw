@@ -31,29 +31,29 @@ public class CanvasInfo : CanvasAPI
         foreach (JsonElement element in root.EnumerateArray())
         {
             // Set the variables that are always used
-            int term_id = element.GetProperty("enrollment_term_id").GetInt32();
-            int course_id = element.GetProperty("id").GetInt32();
-            string course_code = element.GetProperty("course_code").GetString();
-            string course_name = element.GetProperty("name").GetString();
+            int termId = element.GetProperty("enrollment_term_id").GetInt32();
+            int courseId = element.GetProperty("id").GetInt32();
+            string courseCode = element.GetProperty("courseCode").GetString();
+            string courseName = element.GetProperty("name").GetString();
 
 
             //  Check if this is a current class or major class (is this the current term or not)
-            if (term_id == _enrollmentTermId)
+            if (termId == _enrollmentTermId)
             {
                 // For some reason canvas makes each enrollment a seperate list. So you need to select the first one
                 JsonElement enrollment = element.GetProperty("enrollments")[0];
 
                 // Setting variables for StudentCourse
-                string letter_grade = enrollment.GetProperty("computed_current_grade").GetString();
+                string letterGrade = enrollment.GetProperty("computed_current_grade").GetString();
                 double score = enrollment.GetProperty("computed_current_score").GetDouble();
 
-                StudentCourse course = new StudentCourse(course_id,course_name,course_code, score, letter_grade);
+                StudentCourse course = new StudentCourse(courseId,courseName,courseCode, score, letterGrade);
                 courses.Add(course);
             }
             else
             {
                 // Making the MajorCourse
-                MajorCourse course = new MajorCourse(course_id, course_name, course_code);
+                MajorCourse course = new MajorCourse(courseId, courseName, courseCode);
                 courses.Add(course);
             }
         }
@@ -68,10 +68,10 @@ public class CanvasInfo : CanvasAPI
         List<Assignment> assignments = new List<Assignment>();
         
         // For some reason, courseId needs to be a string, but it's an int everywhere else sooooo
-        string course_id = courseId.ToString();
+        string courseIdString = courseId.ToString();
         
         // Create the response asking Canvas for 100 assignments (max) at a time. This makes the request take a while, but it's easier than doing pages
-        HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses/{course_id}/assignments?include[]=submission&per_page=100").Result;
+        HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses/{courseIdString}/assignments?include[]=submission&per_page=100").Result;
         string json = response.Content.ReadAsStringAsync().Result;
         
         // Parsing that Json
@@ -92,13 +92,13 @@ public class CanvasInfo : CanvasAPI
     // Save the raw json to a file. For future implementation.
     public void SaveAssignentsToFile(int courseId)
     {
-        string course_id = courseId.ToString();
-        HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses/{course_id}/assignments?include[]=submission&per_page=100").Result;
+        string courseIdString = courseId.ToString();
+        HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses/{courseIdString}/assignments?include[]=submission&per_page=100").Result;
         string json = response.Content.ReadAsStringAsync().Result;
         
 
         // actually write your assignments json to a file
-        string path = $"assignments_{courseId}";
+        string path = $"assignments_{courseIdString}";
         File.WriteAllText(path, json);        
     }
 }

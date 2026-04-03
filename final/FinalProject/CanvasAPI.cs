@@ -34,8 +34,8 @@ public class CanvasAPI
         {
             if (line.StartsWith("CANVAS_API_KEY="))
             {
-                string[] keyparts = line.Split("=", 2);
-                key = keyparts[1];
+                string[] keyParts = line.Split("=", 2);
+                key = keyParts[1];
             }
         }
 
