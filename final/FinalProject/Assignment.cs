@@ -116,16 +116,18 @@ public class Assignment
         // If it doesn't exist, set the submitted bool to false so it passed over it.
         if (_submission.TryGetProperty("score", out score))
         {
-            // Then, check to see if that output is null, if it is then score defaults to 0.0
-            if (score.ValueKind == JsonValueKind.Null)
+            // Then, check to see if graded_at output is null, if it is then score defaults to 0.0
+            if (_submission.GetProperty("graded_at").ValueKind == JsonValueKind.Null)
             {
                 _graded = false;
                 _submissionScore = 0.0;
             }
             else
             {
+                // If it's not null, then set graded to true
+                _submitted = true;                
                 _graded = true;
-                _submissionScore = score.GetDouble();
+                _submissionScore = Math.Round(score.GetDouble(), 2);
             }
         }
         else

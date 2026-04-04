@@ -33,7 +33,7 @@ public class CanvasInfo : CanvasAPI
             // Set the variables that are always used
             int termId = element.GetProperty("enrollment_term_id").GetInt32();
             int courseId = element.GetProperty("id").GetInt32();
-            string courseCode = element.GetProperty("courseCode").GetString();
+            string courseCode = element.GetProperty("course_code").GetString();
             string courseName = element.GetProperty("name").GetString();
 
 
@@ -95,10 +95,10 @@ public class CanvasInfo : CanvasAPI
         string courseIdString = courseId.ToString();
         HttpResponseMessage response = _client.GetAsync($"{_canvasUrl}/courses/{courseIdString}/assignments?include[]=submission&per_page=100").Result;
         string json = response.Content.ReadAsStringAsync().Result;
-        
+
 
         // actually write your assignments json to a file
-        string path = $"assignments_{courseIdString}";
+        string path = $"assignments_{courseIdString}.json";
         File.WriteAllText(path, json);        
     }
 }

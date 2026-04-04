@@ -68,7 +68,7 @@ class Program
                         int pages = (assignments.Count() + perPage) / perPage;
                         
                         // Loop for pages
-                        for (int i = 0; i < (pages - 1); i++)
+                        for (int i = 0; i < pages; i++)
                         {
                             Console.Clear();
                             Console.WriteLine($"Assignments Overview - {selectedCourse}");
@@ -86,7 +86,7 @@ class Program
                                 }
                             }
 
-                            Console.WriteLine($"\nPress Enter (Page {i + 1} of {pages - 1})");
+                            Console.WriteLine($"\nPress Enter (Page {i + 1} of {pages})");
                             Console.ReadLine();
                         }
                         
